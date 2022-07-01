@@ -16,7 +16,7 @@ namespace Core.Validation
     public class TestModel
     {
         public int Id { get; set; }
-        [DateTimeAttribute("ddMMyyyy")]
+        [DateTimeAttribute("ddMMyyyy", "Custom error message")]
         public string? DateTime { get; set; } = String.Empty;
         public DateTime ParsedDateTime
         {
