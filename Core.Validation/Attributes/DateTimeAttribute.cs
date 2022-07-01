@@ -5,9 +5,16 @@ namespace Core.Validation.Attributes
     public class DateTimeAttribute : ValidationAttribute
     {
         public string? _errorMessage = string.Empty;
-        public DateTimeAttribute(string? errorMessage = null)
+        public string? _format = "MMddyyyy";
+
+        public DateTimeAttribute(string format = null, string? errorMessage = null)
         {
             _errorMessage = errorMessage ?? string.Empty;
+            if (!string.IsNullOrEmpty(format))
+            {
+                _format = format;
+            }
+
         }
         protected override ValidationResult IsValid(object currentValue, ValidationContext validationContext)
         {
@@ -18,7 +25,7 @@ namespace Core.Validation.Attributes
             var value = currentValue.ToString();
             if (string.IsNullOrEmpty(value) ||
                 value.Length != 8 ||
-                !DateTime.TryParseExact(value, "MMddyyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out _))
+                !DateTime.TryParseExact(value, _format, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out _))
             {
                 return new ValidationResult(GetErrorMessage());
             }

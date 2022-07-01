@@ -16,14 +16,14 @@ namespace Core.Validation
     public class TestModel
     {
         public int Id { get; set; }
-        [DateTimeAttribute]
+        [DateTimeAttribute("ddMMyyyy")]
         public string? DateTime { get; set; } = String.Empty;
         public DateTime ParsedDateTime
         {
             get
             {
                 DateTime dateTime;
-                System.DateTime.TryParseExact(DateTime, "MMddyyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dateTime);
+                System.DateTime.TryParseExact(DateTime, "ddMMyyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dateTime);
                 return dateTime;
             }
         }
